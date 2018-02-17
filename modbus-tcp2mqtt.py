@@ -59,7 +59,7 @@ class Element:
                 lastValue[self.topic] = self.value
                 fulltopic=topic+self.topic
                 logging.info("Publishing " + fulltopic)
-                mqc.publish(fulltopic,self.value,qos=0,retain=True)
+                mqc.publish(fulltopic,self.value,qos=0,retain=False)
 
         except Exception as exc:
             logging.error("Error reading "+self.topic+": %s", exc)
@@ -73,20 +73,20 @@ try:
     # define modbus server host, port
     c.host(args.modbus_host)
     c.port(args.modbus_port)
-    
+
     while True:
         # open or reconnect TCP to server
         if not c.is_open():
             if not c.open():
                 logging.error("unable to connect to "+SERVER_HOST+":"+str(SERVER_PORT))
 
-    while True:
         data = []
         for key, value in inputRegisters.items():
             if c.is_open():
                 row = c.read_input_registers(int(value))
                 row.insert(0,key)
                 data.append(row)
+
         
         for key, value in holdingRegisters.items():
             if c.is_open():
