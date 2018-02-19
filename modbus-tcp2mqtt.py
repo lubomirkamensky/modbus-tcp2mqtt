@@ -48,6 +48,23 @@ config.read(args.registers)
 inputRegisters = config['Input-Registers']
 holdingRegisters = config['Holding-Registers']
 
+# Any received value in the upper range (32768-65535)
+# is interpreted as negative value (in the range -32768 to -1). 
+def reMap(value, maxInput=65535, minInput=64535, maxOutput=-1, minOutput=-1001):
+
+    if value >= minInput:
+        value = maxInput if value > maxInput else value
+        value = minInput if value < minInput else value
+
+        inputSpan = maxInput - minInput
+        outputSpan = maxOutput - minOutput
+
+        scaledThrust = float(value - minInput) / float(inputSpan)
+
+        return minOutput + (scaledThrust * outputSpan)
+    else:
+        return value
+
 class Element:
     def __init__(self,row):
         self.topic=row[0]
@@ -59,7 +76,7 @@ class Element:
                 lastValue[self.topic] = self.value
                 fulltopic=topic+self.topic
                 logging.info("Publishing " + fulltopic)
-                mqc.publish(fulltopic,self.value,qos=0,retain=False)
+                mqc.publish(fulltopic,reMap(self.value),qos=0,retain=False)
 
         except Exception as exc:
             logging.error("Error reading "+self.topic+": %s", exc)
