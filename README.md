@@ -13,6 +13,6 @@ python3 modbus-tcp2mqtt.py --mqtt-topic futura --modbus-host 192.168.88.201 --re
 
 Example use pm2 usage
 ---------------------
-pm2 start /usr/bin/python3 --name "modbus-tcp2mqtt-futura" -- /home/luba/Git/modbus-tcp2mqtt/modbus-tcp2mqtt.py --mqtt-topic futura --modbus-host 192.168.88.201 --registers futura.ini
+pm2 start /usr/bin/python3 --name "modbus-tcp2mqtt-futura" -- /home/luba/Git/modbus-tcp2mqtt/modbus-tcp2mqtt.py --mqtt-topic futura --modbus-host 192.168.88.201 --registers /home/luba/Git/modbus-tcp2mqtt/futura.ini
 
 pm2 save
