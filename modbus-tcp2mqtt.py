@@ -97,7 +97,7 @@ try:
         # open or reconnect TCP to server
         if not c.is_open():
             if not c.open():
-                logging.error("unable to connect to "+SERVER_HOST+":"+str(SERVER_PORT))
+                logging.error("unable to connect to "+args.mqtt_host+":"+str(args.mqtt_port))
 
         data = []
         for key, value in inputRegisters.items():
