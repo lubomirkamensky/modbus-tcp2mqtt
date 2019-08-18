@@ -29,8 +29,8 @@ parser.add_argument('--modbus-host', help='Modbus server address')
 parser.add_argument('--modbus-port', default='502', type=int, help='Modbus server port. \
                     Defaults to 502')
 parser.add_argument('--registers', help='Register definition file. Required!')
-parser.add_argument('--frequency', default='3', help='How often is the source \
-                    checked for the changes, in seconds. Only integers. Defaults to 3')
+parser.add_argument('--frequency', default='30', help='How often is the source \
+                    checked for the changes, in seconds. Only integers. Defaults to 30')
 parser.add_argument('--only-changes', default='False', help='When set to True then \
                     only changed values are published')
 
